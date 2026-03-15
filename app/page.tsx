@@ -1,3 +1,6 @@
+
+"use client";
+
 export default function HagoraPressLandingPage() {
   const catalog = [
     {
@@ -125,6 +128,52 @@ export default function HagoraPressLandingPage() {
       a: "Sim. A Hágora Press existe para autores com mensagem edificante, sólida e relevante — não apenas para líderes ministeriais.",
     },
   ];
+
+
+function enviarProjetoWhatsApp(event?: React.FormEvent) {
+  event?.preventDefault();
+
+  const nome = (document.getElementById("nome") as HTMLInputElement)?.value.trim() || "";
+  const email = (document.getElementById("email") as HTMLInputElement)?.value.trim() || "";
+  const whatsapp = (document.getElementById("whatsapp") as HTMLInputElement)?.value.trim() || "";
+  const titulo = (document.getElementById("titulo") as HTMLInputElement)?.value.trim() || "";
+  const genero = (document.getElementById("genero") as HTMLInputElement)?.value.trim() || "";
+  const mensagem = (document.getElementById("mensagem") as HTMLTextAreaElement)?.value.trim() || "";
+
+  const texto = `Olá! Quero enviar meu projeto para avaliação gratuita.
+
+*Nome:* ${nome}
+*E-mail:* ${email}
+*WhatsApp:* ${whatsapp}
+*Título provisório do livro:* ${titulo}
+*Gênero:* ${genero}
+*Mensagem breve sobre a obra:* ${mensagem}`;
+
+  const numero = "556235847141";
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+  window.open(url, "_blank");
+}
+
+
+
+function enviarGuiaWhatsApp(event?: React.FormEvent) {
+  event?.preventDefault();
+
+  const nome = (document.getElementById("lead-nome") as HTMLInputElement)?.value.trim() || "";
+  const email = (document.getElementById("lead-email") as HTMLInputElement)?.value.trim() || "";
+
+  const texto = `Olá! Quero receber o guia gratuito da Hágora Press.
+
+*Nome:* ${nome}
+*E-mail:* ${email}
+*Interesse:* Guia “7 Erros que Matam Livros Cristãos antes mesmo de serem publicados”`;
+
+  const numero = "556235847141";
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+  window.open(url, "_blank");
+}
 
   return (
     <main className="min-h-screen bg-[#f7f3ea] text-slate-900 selection:bg-amber-200">
@@ -509,19 +558,24 @@ export default function HagoraPressLandingPage() {
               Capture clareza, evite erros caros e entenda o que separa manuscritos comuns de obras com legado.
             </p>
           </div>
-          <div className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-3">
-            <input
-              placeholder="Seu nome"
-              className="rounded-2xl border border-white/70 bg-white px-5 py-4 outline-none ring-0 placeholder:text-slate-400"
-            />
-            <input
-              placeholder="Seu e-mail"
-              className="rounded-2xl border border-white/70 bg-white px-5 py-4 outline-none ring-0 placeholder:text-slate-400"
-            />
-            <button className="rounded-2xl bg-[#0b2341] px-5 py-4 font-semibold text-white transition hover:bg-[#112c50]">
-              Quero o guia agora
-            </button>
-          </div>
+<form onSubmit={enviarGuiaWhatsApp} className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-3">
+  <input
+    id="lead-nome"
+    placeholder="Seu nome"
+    className="rounded-2xl border border-white/70 bg-white px-5 py-4 outline-none ring-0 placeholder:text-slate-400"
+  />
+  <input
+    id="lead-email"
+    placeholder="Seu e-mail"
+    className="rounded-2xl border border-white/70 bg-white px-5 py-4 outline-none ring-0 placeholder:text-slate-400"
+  />
+  <button
+    type="submit"
+    className="rounded-2xl bg-[#0b2341] px-5 py-4 font-semibold text-white transition hover:bg-[#112c50]"
+  >
+    Quero o guia agora
+  </button>
+</form>
         </div>
       </section>
 
@@ -590,27 +644,54 @@ export default function HagoraPressLandingPage() {
           </div>
 
           <div className="mx-auto mt-10 rounded-[2rem] border border-white/70 bg-white p-8 shadow-lg sm:p-10">
-            <div className="grid gap-4 md:grid-cols-2">
-              <input placeholder="Nome" className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400" />
-              <input placeholder="E-mail" className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400" />
-              <input placeholder="WhatsApp" className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400" />
-              <input placeholder="Título provisório do livro" className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400" />
-              <input placeholder="Gênero" className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400 md:col-span-2" />
-              <textarea
-                placeholder="Mensagem breve sobre sua obra"
-                rows={5}
-                className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400 md:col-span-2"
-              />
-            </div>
+            <form onSubmit={enviarProjetoWhatsApp}>
+  <div className="grid gap-4 md:grid-cols-2">
+    <input
+      id="nome"
+      placeholder="Nome"
+      className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400"
+    />
+    <input
+      id="email"
+      placeholder="E-mail"
+      className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400"
+    />
+    <input
+      id="whatsapp"
+      placeholder="WhatsApp"
+      className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400"
+    />
+    <input
+      id="titulo"
+      placeholder="Título provisório do livro"
+      className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400"
+    />
+    <input
+      id="genero"
+      placeholder="Gênero"
+      className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400 md:col-span-2"
+    />
+    <textarea
+      id="mensagem"
+      placeholder="Mensagem breve sobre sua obra"
+      rows={5}
+      className="rounded-2xl border border-slate-200 px-5 py-4 outline-none placeholder:text-slate-400 md:col-span-2"
+    />
+  </div>
 
-            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm leading-7 text-slate-500">
-                Ao enviar, você demonstra interesse em receber uma avaliação editorial inicial da sua obra.
-              </p>
-              <button className="rounded-full bg-amber-500 px-7 py-4 font-semibold text-slate-950 transition hover:bg-amber-400">
-                Enviar meu projeto para avaliação gratuita
-              </button>
-            </div>
+  <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <p className="text-sm leading-7 text-slate-500">
+      Ao enviar, você demonstra interesse em receber uma avaliação editorial inicial da sua obra.
+    </p>
+
+    <button
+      type="submit"
+      className="inline-flex items-center justify-center rounded-full bg-amber-500 px-7 py-4 font-semibold text-slate-950 transition hover:bg-amber-400"
+    >
+      Enviar meu projeto para avaliação gratuita
+    </button>
+  </div>
+</form>
           </div>
         </div>
       </section>
